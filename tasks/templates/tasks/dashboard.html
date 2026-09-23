@@ -17,7 +17,10 @@ Dashboard
         </p>
     </div>
 
-    <a href="#" class="btn-primary">
+    <a
+        href="{% url 'task_create' %}"
+        class="btn-primary"
+    >
         + Add Task
     </a>
 
@@ -78,7 +81,7 @@ Dashboard
 
         <h2>Recent Tasks</h2>
 
-        <a href="#">
+        <a href="{% url 'task_list' %}">
             View All
         </a>
 
@@ -93,10 +96,12 @@ Dashboard
 
                 <div class="task-card">
 
-                    <div>
+                    <div class="task-content">
 
                         <h3>
-                            {{ task.title }}
+                            <a href="{% url 'task_detail' task.pk %}">
+                                {{ task.title }}
+                            </a>
                         </h3>
 
                         <p>
@@ -106,7 +111,7 @@ Dashboard
                     </div>
 
 
-                    <div>
+                    <div class="task-actions">
 
                         <span class="status {{ task.status }}">
                             {{ task.get_status_display }}
@@ -129,6 +134,13 @@ Dashboard
             <p>
                 Create your first task to get started.
             </p>
+
+            <a
+                href="{% url 'task_create' %}"
+                class="btn-primary"
+            >
+                Create Task
+            </a>
 
         </div>
 

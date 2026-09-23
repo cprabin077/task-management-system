@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Tasks
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <h1>My Tasks</h1>
+
+        <p>
+            Manage all your tasks.
+        </p>
+
+    </div>
+
+
+    <a
+        href="{% url 'task_create' %}"
+        class="btn-primary"
+    >
+        + Add Task
+    </a>
+
+</div>
+
+
+{% if tasks %}
+
+    <div class="task-list">
+
+        {% for task in tasks %}
+
+            <div class="task-card">
+
+                <div class="task-content">
+
+                    <h3>
+
+                        <a href="{% url 'task_detail' task.pk %}">
+                            {{ task.title }}
+                        </a>
+
+                    </h3>
+
+
+                    <p>
+                        {{ task.description|truncatewords:20 }}
+                    </p>
+
+
+                    {% if task.due_date %}
+
+                        <small>
+                            Due: {{ task.due_date }}
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="task-actions">
+
+                    <span class="status {{ task.status }}">
+                        {{ task.get_status_display }}
+                    </span>
+
+
+                    <a
+                        href="{% url 'task_update' task.pk %}"
+                        class="btn-small"
+                    >
+                        Edit
+                    </a>
+
+
+                    <a
+                        href="{% url 'task_delete' task.pk %}"
+                        class="btn-small btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <div class="empty-state">
+
+        <h2>No Tasks</h2>
+
+        <p>
+            You haven't created any tasks yet.
+        </p>
+
+
+        <a
+            href="{% url 'task_create' %}"
+            class="btn-primary"
+        >
+            Create Your First Task
+        </a>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}
