@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>Create Account</h1>
+
+        <p class="auth-subtitle">
+            Create an account to manage your tasks.
+        </p>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="error-message">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="form-group">
+
+                <label for="{{ form.username.id_for_label }}">
+                    Username
+                </label>
+
+                {{ form.username }}
+
+                {% if form.username.errors %}
+
+                    <div class="field-error">
+                        {{ form.username.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="{{ form.password1.id_for_label }}">
+                    Password
+                </label>
+
+                {{ form.password1 }}
+
+                {% if form.password1.errors %}
+
+                    <div class="field-error">
+                        {{ form.password1.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="{{ form.password2.id_for_label }}">
+                    Confirm Password
+                </label>
+
+                {{ form.password2 }}
+
+                {% if form.password2.errors %}
+
+                    <div class="field-error">
+                        {{ form.password2.errors }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-primary full-width"
+            >
+                Register
+            </button>
+
+        </form>
+
+
+        <p class="auth-footer">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

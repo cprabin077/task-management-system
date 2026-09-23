@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <div>
+        <h1>Dashboard</h1>
+
+        <p>
+            Manage your tasks easily.
+        </p>
+    </div>
+
+    <a href="#" class="btn-primary">
+        + Add Task
+    </a>
+
+</div>
+
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <h3>Total Tasks</h3>
+
+        <p>
+            {{ total_tasks }}
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>Pending</h3>
+
+        <p>
+            {{ pending_tasks }}
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>In Progress</h3>
+
+        <p>
+            {{ in_progress_tasks }}
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <h3>Completed</h3>
+
+        <p>
+            {{ completed_tasks }}
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="section">
+
+    <div class="section-header">
+
+        <h2>Recent Tasks</h2>
+
+        <a href="#">
+            View All
+        </a>
+
+    </div>
+
+
+    {% if recent_tasks %}
+
+        <div class="task-list">
+
+            {% for task in recent_tasks %}
+
+                <div class="task-card">
+
+                    <div>
+
+                        <h3>
+                            {{ task.title }}
+                        </h3>
+
+                        <p>
+                            {{ task.description|truncatewords:15 }}
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="status {{ task.status }}">
+                            {{ task.get_status_display }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>No tasks yet</h3>
+
+            <p>
+                Create your first task to get started.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

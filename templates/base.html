@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Task Management{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="navbar-brand">
+            <a href="{% url 'dashboard' %}">
+                Task Management
+            </a>
+        </div>
+
+        <div class="navbar-right">
+
+            {% if user.is_authenticated %}
+
+                <span class="welcome">
+                    Welcome, {{ user.username }}
+                </span>
+
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        Logout
+                    </button>
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
